@@ -4,7 +4,7 @@ This project is a scientific outreach activity created for the **Biodiversity** 
 
 ## Description
 
-The **Biodiversity Game** allows players to explore different species, their environments, and the importance of biodiversity conservation. By engaging with the game, users can learn about various ecosystems, animal behaviors, and the role each species plays in maintaining ecological balance.
+The **Petunia Game** allows players to explore different species, their environments, and the importance of biodiversity conservation. 
 
 This game was developed as part of a scientific outreach initiative to make the topic of biodiversity more accessible and enjoyable for students and the general public.
 
