@@ -97,14 +97,19 @@ function drawMenu() {
 
 function drawCredits() {
     ctx.fillStyle = 'white';
-    ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100);
+    ctx.fillRect(50, 50, canvas.width - 100, canvas.height - 100); // Fundo branco
 
     ctx.fillStyle = 'black';
-    ctx.fillText("Alunos: George Qian, Lorenzo Chaves, Lucas Carlotto e Nicolas Menegat", 100, 150);
-    ctx.fillText("Professora orientadora: Loreta Brandao", 100, 200);
-    ctx.fillText("Atividade de extensão da disciplina: [BIO07036] BIODIVERSIDADE", 100, 250);
+    ctx.font = '18px Arial'; // Reduzir o tamanho da fonte para 18px
+    ctx.textAlign = 'center'; // Alinhar o texto ao centro
 
-    ctx.fillText("Clique para voltar ao Menu", 100, canvas.height - 100);
+    // Texto centralizado
+    const centerX = canvas.width / 2;
+    ctx.fillText("Alunos: George Qian, Lorenzo Chaves, Lucas Carlotto e Nicolas Menegat", centerX, 150);
+    ctx.fillText("Professora orientadora: Loreta Brandao", centerX, 200);
+    ctx.fillText("Atividade de extensão da disciplina: [BIO07036] BIODIVERSIDADE", centerX, 250);
+
+    ctx.fillText("Clique para voltar ao Menu", centerX, canvas.height - 100);
 }
 
 function loadSpeciesCards() {
@@ -178,11 +183,21 @@ function drawGame() {
 }
 
 function drawVictory() {
+    // Desenhar a mensagem de vitória no centro
     ctx.fillStyle = 'lightgray';
-    ctx.fillRect(300, 200, 200, 50);
+    ctx.fillRect(150, 100, canvas.width - 300, 150); // Retângulo de fundo para a mensagem
+
     ctx.fillStyle = 'black';
-    ctx.fillText("Parabéns você venceu!", 200, 230);
-    ctx.fillText("Voltar ao Menu", 310, 250);
+    ctx.font = '48px Arial'; // Tamanho grande para o texto
+    ctx.textAlign = 'center'; // Alinhar o texto ao centro
+    ctx.fillText("Parabéns você venceu!", canvas.width / 2, 150); // Centraliza a mensagem no meio da tela
+
+    // Desenhar o botão "Voltar ao Menu" no canto inferior central
+    ctx.fillStyle = 'lightgray';
+    ctx.fillRect(300, canvas.height - 100, 200, 50); // Botão no canto inferior
+    ctx.fillStyle = 'black';
+    ctx.font = '20px Arial'; // Tamanho do texto para o botão
+    ctx.fillText("Voltar ao Menu", canvas.width / 2, canvas.height - 70); // Centraliza o texto do botão
 }
 
 function checkMatch() {
@@ -214,13 +229,23 @@ canvas.addEventListener('click', function (event) {
                 currentScreen = 'credits'; // Ir para créditos
             }
         }
+    } else if (currentScreen === 'victory') {
+        // Verificar clique no botão "Voltar ao Menu" na tela de vitória
+        if (x >= 300 && x <= 500 && y >= canvas.height - 100 && y <= canvas.height - 50) {
+            currentScreen = 'menu'; // Voltar ao menu
+        }
     } else if (currentScreen === 'credits') {
         currentScreen = 'menu';
     } else if (currentScreen === 'species') {
-        // Verificar clique nas cartas de espécies
-        const index = Math.floor((y - (canvas.height - GRID_ROWS * CARD_HEIGHT) / 2) / (CARD_HEIGHT + CARD_SPACING)) * GRID_COLS + Math.floor((x - (canvas.width - GRID_COLS * CARD_WIDTH) / 2) / (CARD_WIDTH + CARD_SPACING));
-        if (index >= 0 && index < speciesCards.length) {
-            showCardInfo(index);
+        // Verificar clique no botão "Voltar ao Menu"
+        if (x >= 300 && x <= 500 && y >= canvas.height - 100 && y <= canvas.height - 50) {
+            currentScreen = 'menu'; // Voltar ao menu
+        } else {
+            // Verificar clique nas cartas de espécies
+            const index = Math.floor((y - (canvas.height - GRID_ROWS * CARD_HEIGHT) / 2) / (CARD_HEIGHT + CARD_SPACING)) * GRID_COLS + Math.floor((x - (canvas.width - GRID_COLS * CARD_WIDTH) / 2) / (CARD_WIDTH + CARD_SPACING));
+            if (index >= 0 && index < speciesCards.length) {
+                showCardInfo(index);
+            }
         }
     } else if (currentScreen === 'game' && !cooldown) {
         const index = Math.floor((y - (canvas.height - GRID_ROWS * CARD_HEIGHT) / 2) / (CARD_HEIGHT + CARD_SPACING)) * GRID_COLS + Math.floor((x - (canvas.width - GRID_COLS * CARD_WIDTH) / 2) / (CARD_WIDTH + CARD_SPACING));
