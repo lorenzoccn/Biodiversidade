@@ -281,6 +281,7 @@ canvas.addEventListener('click', function (event) {
 });
 
 function startGame() {
+    ctx.font = '18px Arial';
     resetGame();
     startTime = Date.now(); // Salva o momento em que o jogo começa
     currentScreen = 'game';
